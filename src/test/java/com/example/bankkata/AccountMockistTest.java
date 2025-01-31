@@ -12,26 +12,27 @@ public class AccountMockistTest {
 
     @Test
     public void testAccountBehavior() {
+        //Create a real instance of the Account class
         Account account = new Account();
 
         // Create a mock object of the AccountService interface
         AccountService accountService = Mockito.mock(AccountService.class);
 
-        // Step 3: Simulate the behavior of deposits, withdrawals, and statement printing
+        //Simulate the behavior of deposits, withdrawals, and statement printing
         doAnswer((invocation) -> {
             int amount = invocation.getArgument(0);
-            account.deposit(amount); // Call the real deposit method
+            account.deposit(amount);
             return null;
         }).when(accountService).deposit(anyInt());
 
         doAnswer((invocation) -> {
             int amount = invocation.getArgument(0);
-            account.withdraw(amount); // Call the real withdraw method
+            account.withdraw(amount);
             return null;
         }).when(accountService).withdraw(anyInt());
 
         doAnswer((invocation) -> {
-            account.printStatement(); // Call the real printStatement method
+            account.printStatement();
             return null;
         }).when(accountService).printStatement();
 
@@ -45,7 +46,7 @@ public class AccountMockistTest {
         System.out.println("Printing statement...");
         accountService.printStatement();
 
-        // Verify the methods were called in the correct order
+        //  Verify the methods were called in the correct order
         System.out.println("Verifying method call order...");
         InOrder inOrder = Mockito.inOrder(accountService);
         inOrder.verify(accountService).deposit(1000);
